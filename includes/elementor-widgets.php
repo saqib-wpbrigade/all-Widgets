@@ -201,14 +201,14 @@ final class Maricopa_Elementor_Widgets {
 	public function init_widgets() {
 
 		// Include Widget files.
-		// require_once __DIR__ . '/elementor-widgets/maricopa-zigzag-timeline.php';
+		require_once __DIR__ . '/elementor-widgets/maricopa-zigzag-timeline.php';
 		// require_once __DIR__ . '/elementor-widgets/maricopa-donor-stories.php';
 		// require_once __DIR__ . '/elementor-widgets/maricopa-foundation-list.php';
 		// require_once __DIR__ . '/elementor-widgets/mccf-student-stories.php';
 		// require_once __DIR__ . '/elementor-widgets/maricopa-news-stories.php';
 	
 		// Register widgets.
-		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_ZigZag_Timeline() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_ZigZag_Timeline() );
 		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_Donor_Stories() );
 		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_Foundation_List() );
 		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_News_Stories() );
