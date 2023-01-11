@@ -14,6 +14,7 @@ class Maricopa_ZigZag_Timeline extends \Elementor\Widget_Base {
 	 */
 	public function __construct( $data = array(), $args = null ) {
 		parent::__construct( $data, $args );
+		
 	}
 
 	/**

@@ -6,9 +6,9 @@
  * Version: 1.0.0
  * Author: LANETERRALEVER
  * Author URI: https://LANETERRALEVER.com
- * Text Domain: maricopa
+ * Text Domain: widgets
  *
- * @package maricopa
+ * @package 
  */
 
 if ( ! defined( 'MARICOPA_PLUGIN_VERSION' ) ) {
