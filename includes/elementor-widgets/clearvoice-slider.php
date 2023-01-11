@@ -14,8 +14,10 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 */
 	public function __construct( $data = array(), $args = null ) {
 		parent::__construct( $data, $args );
-		wp_register_style( 'clearvoice', plugins_url( '/assets/css/clearvoice-slider.css' ), array(), '1.0.0' );
+		// wp_register_style( 'clearvoice-css', plugins_url( '/assets/css/clearvoice-slider.css' ), array(), '1.0.0' );
 	}
+
+	
 
 	/**
 	 * Get widget name.
@@ -37,7 +39,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 * @return array Widget scripts
 	 */
 	public function get_script_depends() {
-		return array( 'clearvoice' );
+		return array( 'elementor-hello-world' );
 	}
 
 
@@ -179,17 +181,35 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 		$pdf_posts = isset( $settings['pdf_slider'] ) && ! empty( $settings['pdf_slider'] ) ? $settings['pdf_slider'] : '';
 
 		if ( is_array( $pdf_posts ) ) : ?>
-			<div class="timeline-main-wrapper">
-				<div class="container-timeline">
+			<div class="timeline-main-wrapper swiper-container">
+				<div class="swiper-wrapper">
 					<?php
 					foreach ( $pdf_posts as $pdf_post ) {
 
-						$description = isset( $timeline['mccf_timeline_description'] ) && ! empty( $timeline['mccf_timeline_description'] ) ? $timeline['mccf_timeline_description'] : '';
-						$year        = isset( $timeline['mccf_timeline_year'] ) && ! empty( $timeline['mccf_timeline_year'] ) ? $timeline['mccf_timeline_year'] : '';
-						$image       = isset( $timeline['mccf_timeline_image'] ) && ! empty( $timeline['mccf_timeline_image'] ) ? $timeline['mccf_timeline_image'] : '';
+						$title = isset( $pdf_post['tab_title'] ) && ! empty( $pdf_post['tab_title'] ) ? $pdf_post['tab_title'] : '';
+						$cat_title       = isset( $pdf_post['category_name'] ) && ! empty( $pdf_post['category_name'] ) ? $pdf_post['category_name'] : '';
+						$image       = isset( $pdf_post['pdf_image'] ) && ! empty( $pdf_post['pdf_image'] ) ? $pdf_post['pdf_image'] : '';
 
 						?>
-						<div class="timeline-wrapper">
+						<div class="swiper-slide">
+							<div class="marketing-box">
+								<a href="#">
+									<div class="marketing-thumbnail">
+										<?php if(! empty($image)) : ?>
+										<?php echo wp_get_attachment_image($image['id']) ?>
+										<?php endif ; ?>
+									</div>
+									<div class="marketing-content">
+										<div class="marketing-label">
+											<span class="article-label">cabela’s</span>
+											<h6 class="article-title">Article Name</h6>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<!-- <div class="timeline-wrapper">
 							<div class="timeline-description">
 								<?php _e( $description, 'maricopa' ); ?>
 							</div>
@@ -201,7 +221,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 									<img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>">
 								<?php endif; ?>
 							</div>
-						</div>  
+						</div>   -->
 						<?php
 					}
 					?>

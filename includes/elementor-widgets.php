@@ -67,6 +67,10 @@ final class Maricopa_Elementor_Widgets {
 
 	}
 
+	public function widget_scripts() {
+		wp_register_script( 'elementor-hello-world', plugins_url( '/assets/js/clearvoice-slider.js', __FILE__ ), [ 'jquery' ], false, true );
+	}
+
 	/**
 	 * Constructor
 	 *
@@ -76,6 +80,7 @@ final class Maricopa_Elementor_Widgets {
 	 */
 	public function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
+		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'widget_scripts' ] );
 	}
 
 	/**
