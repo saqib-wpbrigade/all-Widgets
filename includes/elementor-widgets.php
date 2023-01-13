@@ -208,6 +208,7 @@ final class Maricopa_Elementor_Widgets {
 		// Include Widget files.
 		require_once __DIR__ . '/elementor-widgets/maricopa-zigzag-timeline.php';
 		require_once __DIR__ . '/elementor-widgets/clearvoice-slider.php';
+		require_once __DIR__ . '/elementor-widgets/clearvoice-posts.php';
 		// require_once __DIR__ . '/elementor-widgets/maricopa-foundation-list.php';
 		// require_once __DIR__ . '/elementor-widgets/mccf-student-stories.php';
 		// require_once __DIR__ . '/elementor-widgets/maricopa-news-stories.php';
@@ -215,7 +216,7 @@ final class Maricopa_Elementor_Widgets {
 		// Register widgets.
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_ZigZag_Timeline() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Clearvoice_Slider() );
-		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_Foundation_List() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Clearvoice_Posts() );
 		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_News_Stories() );
 		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_Student_Stories() );
 

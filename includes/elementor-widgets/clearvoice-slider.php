@@ -14,10 +14,8 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 */
 	public function __construct( $data = array(), $args = null ) {
 		parent::__construct( $data, $args );
-		// wp_register_style( 'clearvoice-css', plugins_url( '/assets/css/clearvoice-slider.css' ), array(), '1.0.0' );
 	}
 
-	
 
 	/**
 	 * Get widget name.
@@ -30,7 +28,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 * @return string Widget name
 	 */
 	public function get_name() {
-		return 'clearvoice';
+		return 'clearvoice_slider';
 	}
 
 	/**
@@ -39,7 +37,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 * @return array Widget scripts
 	 */
 	public function get_script_depends() {
-		return array( 'elementor-hello-world' );
+		return array( 'elementor-hello-world');
 	}
 
 
@@ -54,7 +52,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Clear Voice Slider', 'widgets' );
+		return __( 'ClearVoice Slider', 'widgets' );
 	}
 
 	/**
@@ -82,7 +80,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return array( 'maricopa_widgets' );
+		return array( 'general' );
 	}
 
 	/**
@@ -102,7 +100,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			array(
-				'label' => esc_html__( 'Content', 'maricopa' ),
+				'label' => esc_html__( 'Content', 'widgets' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -147,6 +145,8 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 					'active' => true,
 				],
 				'placeholder' => esc_html__( 'https://your-link.com', 'widgets' ),
+				'options' => [ 'url', 'is_external', 'nofollow' ],
+				
 				'separator' => 'before',
 			]
 		);
@@ -157,12 +157,6 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 				'label'       => esc_html__( 'Security Cards', 'widgets' ),
 				'type'        => \Elementor\Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
-				'default'     => array(
-					array(
-						'main_heading' => esc_html__( '{{ mccf_timeline_year }}}', 'maricopa' ),
-						'card_content' => esc_html__( 'Item content. Click the edit button to change this text.', 'maricopa' ),
-					),
-				),
 				'title_field' => '{{{ category_name }}}',
 			)
 		);
@@ -176,24 +170,26 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 * @return void
 	 */
 	protected function render() {
-
+		
 		$settings  = $this->get_settings_for_display();
 		$pdf_posts = isset( $settings['pdf_slider'] ) && ! empty( $settings['pdf_slider'] ) ? $settings['pdf_slider'] : '';
 
 		if ( is_array( $pdf_posts ) ) : ?>
+		 
 			<div class="timeline-main-wrapper swiper-container">
 				<div class="swiper-wrapper">
 					<?php
 					foreach ( $pdf_posts as $pdf_post ) {
-
 						$title = isset( $pdf_post['tab_title'] ) && ! empty( $pdf_post['tab_title'] ) ? $pdf_post['tab_title'] : '';
 						$cat_title       = isset( $pdf_post['category_name'] ) && ! empty( $pdf_post['category_name'] ) ? $pdf_post['category_name'] : '';
 						$image       = isset( $pdf_post['pdf_image'] ) && ! empty( $pdf_post['pdf_image'] ) ? $pdf_post['pdf_image'] : '';
-
+						$link      = isset( $pdf_post['link'] ) && ! empty( $pdf_post['link'] ) ? $pdf_post['link'] : '';
 						?>
 						<div class="swiper-slide">
 							<div class="marketing-box">
-								<a href="#">
+								<?php if ($link['url']) : ?>
+                                    <a href="<?php echo esc_url($link['url']); ?>" target="<?php echo ($link['is_external']) ? "_blank" : '' ?>">
+                                    
 									<div class="marketing-thumbnail">
 										<?php if(! empty($image)) : ?>
 										<?php echo wp_get_attachment_image($image['id']) ?>
@@ -201,31 +197,37 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 									</div>
 									<div class="marketing-content">
 										<div class="marketing-label">
-											<span class="article-label">cabela’s</span>
-											<h6 class="article-title">Article Name</h6>
+											<span class="article-label"><?php esc_html_e( $cat_title, 'widgets' ); ?></span>
+											<h6 class="article-title"><?php esc_html_e( $title, 'widgets' ); ?></h6>
 										</div>
 									</div>
 								</a>
+								<?php else :  ?>
+								<div>
+									<div class="marketing-thumbnail">
+										<?php if(! empty($image)) : ?>
+										<?php echo wp_get_attachment_image($image['id']) ?>
+										<?php endif ; ?>
+									</div>
+									<div class="marketing-content">
+										<div class="marketing-label">
+											<span class="article-label"><?php esc_html_e( $cat_title, 'widgets' ); ?></span>
+											<h6 class="article-title"><?php esc_html_e( $title, 'widgets' ); ?></h6>
+										</div>
+									</div>
+								</div>
+								<?php endif ;?>
 							</div>
 						</div>
-
-						<!-- <div class="timeline-wrapper">
-							<div class="timeline-description">
-								<?php _e( $description, 'maricopa' ); ?>
-							</div>
-							<div class="date-timeline"><?php esc_html_e( $year, 'maricopa' ); ?></div>
-							<?php $extra_class = ! empty( $image['url'] ) ? '' : ' timeline-empty-img'; ?>
-							<div class="timeline-image<?php echo $extra_class; ?>">
-								<?php if ( ! empty( $image['url'] ) ) : ?>
-									<?php $image_alt = isset( $image['alt'] ) && ! empty( $image['alt'] ) ? $image['alt'] : ''; ?>
-									<img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>">
-								<?php endif; ?>
-							</div>
-						</div>   -->
 						<?php
 					}
 					?>
 				</div>
+				<div class="swiper-controller">
+                    <div class="swiper-next-btn"></div>
+                    <div class="swiper-prev-btn"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
 			</div>
 		<?php
 		endif;
