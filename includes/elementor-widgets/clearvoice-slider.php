@@ -1,6 +1,6 @@
 <?php
 /**
- * Plus Alliance Elementor Widgets.
+ * Elementor Widgets.
  *
  * @since 1.0.0
  */
@@ -20,7 +20,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	/**
 	 * Get widget name.
 	 *
-	 * Retrieve Plus Alliance widget name
+	 * Retrieve widget name
 	 *
 	 * @since 1.0.0
 	 * @access public
@@ -66,7 +66,7 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'eicon-menu-card';
+		return 'eicon-slider-3d';
 	}
 
 	/**
@@ -112,14 +112,14 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 			array(
 				'label' => esc_html__( 'Category', 'widgets' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( '', 'maricopa' ),
+				'default' => esc_html__( '', 'widgets' ),
 			)
 		);
 
 		$repeater->add_control(
 			'tab_title',
 			array(
-				'label' => esc_html__( 'Pdf Title', 'maricopa' ),
+				'label' => esc_html__( 'Pdf Title', 'widgets' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
 				'default' => esc_html__( '', 'widgets' ),
 			)
@@ -154,9 +154,15 @@ class Clearvoice_Slider extends \Elementor\Widget_Base {
 		$this->add_control(
 			'pdf_slider',
 			array(
-				'label'       => esc_html__( 'Security Cards', 'widgets' ),
+				'label'       => esc_html__( 'Pdf Cards', 'widgets' ),
 				'type'        => \Elementor\Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
+				'default' => [
+                    [
+                        'cat_name' => __( 'Item 1', 'widgets' ),
+                    ]
+                    
+                ],
 				'title_field' => '{{{ category_name }}}',
 			)
 		);

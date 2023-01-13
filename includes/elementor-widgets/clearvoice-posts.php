@@ -1,6 +1,6 @@
 <?php
 /**
- * Plus Alliance Elementor Widgets.
+ *  Elementor Widgets.
  *
  * @since 1.0.0
  */
@@ -39,8 +39,6 @@ class Clearvoice_Posts extends \Elementor\Widget_Base {
 		return array( 'elementor-hello-world');
 	}
 
-
-
 	/**
 	 * Get widget title.
 	 *
@@ -66,7 +64,7 @@ class Clearvoice_Posts extends \Elementor\Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'eicon-menu-card';
+		return 'eicon-post';
 	}
 
 	/**
@@ -82,8 +80,6 @@ class Clearvoice_Posts extends \Elementor\Widget_Base {
 	public function get_categories() {
 		return array( 'general' );
 	}
-
-	
 	
 
 	/**
@@ -113,7 +109,7 @@ class Clearvoice_Posts extends \Elementor\Widget_Base {
 				'label'   => esc_html__( 'Posts Per Page', 'widgets' ),
 				'type'    => \Elementor\Controls_Manager::NUMBER,
 				'min' => 1,
-				'max' => 20,
+				'max' => 10,
 				'default' => esc_html__( '1', 'widgets' ),
 			)
 		);
@@ -133,6 +129,19 @@ class Clearvoice_Posts extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'post_orderby',
+			[
+				'label' => __( 'Order By', 'widgets' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => 'date',
+				'options' => [
+					'date' => __( 'Date', 'widgets' ),
+					'title' => __( 'Title', 'widgets' ),
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
 	}
@@ -146,12 +155,13 @@ class Clearvoice_Posts extends \Elementor\Widget_Base {
 
 		$settings      = $this->get_settings_for_display();
 		$post_per_page = isset( $settings['clearvoice_post_per_page_post'] ) && ! empty( $settings['clearvoice_post_per_page_post'] ) ? $settings['clearvoice_post_per_page_post'] : '';
-		$post_order = isset( $settings['clearvoice_post_order'] ) && ! empty( $settings['clearvoice_post_order']) ? $settings['clearvoice_post_order'] : 'ASC';
-        var_dump($post_order);
+		$post_order = isset( $settings['clearvoice_post_order'] ) && ! empty( $settings['clearvoice_post_order']) ? $settings['clearvoice_post_order'] : '';
+		$post_orderby =isset( $settings['post_orderby'] ) && ! empty( $settings['post_orderby']) ? $settings['post_orderby'] : '';
+        
 		$post_query = new WP_Query(
 			array(
 				'post_type'      => 'post',
-				'orderby' => 'date',
+				'orderby' => $post_orderby,
 				'order' => $post_order,
 				'posts_per_page' => $post_per_page,
 			)
@@ -182,10 +192,11 @@ class Clearvoice_Posts extends \Elementor\Widget_Base {
                             <?php
                         
                     endwhile;
+					wp_reset_postdata();
                     ?>				
 				</div>
 			<?php
-			wp_reset_postdata();
+			
 		endif;
 	}
 }

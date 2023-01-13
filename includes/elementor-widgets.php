@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Main Plus Alliance Elementor Widgets
+ * Main  Elementor Widgets
  *
  * The main class that initiates and runs the plugin.
  *
@@ -209,17 +209,12 @@ final class Maricopa_Elementor_Widgets {
 		require_once __DIR__ . '/elementor-widgets/maricopa-zigzag-timeline.php';
 		require_once __DIR__ . '/elementor-widgets/clearvoice-slider.php';
 		require_once __DIR__ . '/elementor-widgets/clearvoice-posts.php';
-		// require_once __DIR__ . '/elementor-widgets/maricopa-foundation-list.php';
-		// require_once __DIR__ . '/elementor-widgets/mccf-student-stories.php';
-		// require_once __DIR__ . '/elementor-widgets/maricopa-news-stories.php';
+		
 	
 		// Register widgets.
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_ZigZag_Timeline() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Clearvoice_Slider() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Clearvoice_Posts() );
-		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_News_Stories() );
-		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Maricopa_Student_Stories() );
-
 	}
 
 	/**
